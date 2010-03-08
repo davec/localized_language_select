@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'test/unit'
 
 require 'rubygems'
@@ -5,6 +6,7 @@ require 'active_support'
 require 'action_controller'
 require 'action_controller/test_process'
 require 'action_view'
+require 'action_view/helpers'
 require 'action_view/helpers/tag_helper'
 require 'i18n'
 
@@ -46,9 +48,14 @@ class LocalizedLanguageSelectTest < Test::Unit::TestCase
     assert localized_language_select(:user, :language) =~ Regexp.new(Regexp.escape('<option value="es">espagnol</option>'))
   end
 
+  def test_should_return_localized_country_option_tags
+    I18n.locale = 'fr'
+    assert localized_language_select(:user, :language) =~ Regexp.new(Regexp.escape('<option value="es-ES">espagnol ibérique</option>'))
+  end
+
   def test_should_return_priority_languages_first
     assert localized_language_options_for_select(nil, [:es, :fr]) =~ Regexp.new(
-      Regexp.escape("<option value=\"es\">Spanish</option>\n<option value=\"fr\">French</option><option value=\"\" disabled=\"disabled\">-------------</option>\n<option value=\"aa\">Afar</option>\n"))
+      Regexp.escape("<option value=\"es\">Spanish</option>\n<option value=\"fr\">French</option><option value=\"\" disabled=\"disabled\">-------------</option>\n<option value=\"ab\">Abkhazian</option>\n"))
   end
 
   def test_i18n_should_know_about_languages
@@ -61,10 +68,10 @@ class LocalizedLanguageSelectTest < Test::Unit::TestCase
     assert_nothing_raised { LocalizedLanguageSelect::localized_languages_array() }
     I18n.locale = 'en'
     assert_equal 504, LocalizedLanguageSelect::localized_languages_array.size
-    assert_equal 'Afar', LocalizedLanguageSelect::localized_languages_array.first[0]
+    assert_equal 'Abkhazian', LocalizedLanguageSelect::localized_languages_array.first[0]
     I18n.locale = 'fr'
     assert_equal 503, LocalizedLanguageSelect::localized_languages_array.size
-    assert_equal 'afar', LocalizedLanguageSelect::localized_languages_array.first[0]
+    assert_equal 'abkhaze', LocalizedLanguageSelect::localized_languages_array.first[0]
   end
 
   def test_priority_languages_returns_correctly_and_in_correct_order

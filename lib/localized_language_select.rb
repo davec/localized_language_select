@@ -23,7 +23,7 @@ module LocalizedLanguageSelect
     # Returns array with codes and localized language names (according to <tt>I18n.locale</tt>)
     # for <tt><option></tt> tags
     def localized_languages_array
-      I18n.translate(:languages).map { |key, value| [value, key.to_s.downcase] }.sort
+      I18n.translate(:languages).map { |key, value| [value, key.to_s] }.sort
     end
     # Return array with codes and localized language names for array of language codes passed as argument
     # == Example
