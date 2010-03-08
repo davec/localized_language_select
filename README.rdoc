@@ -11,7 +11,7 @@ You can easily translate language codes in your application like this:
 
     <%= I18n.t @user.language, :scope => 'languages' %>
 
-Comes with a Rake task <tt>rake import:language_select 'de'</tt> for importing language names
+Comes with a Rake task <tt>rake import:language_select locale=de</tt> for importing language names
 from Unicode.org's CLDR repository (http://www.unicode.org/cldr/data/charts/summary/root.html)
 Don't forget to restart the application when you add new locale.
 

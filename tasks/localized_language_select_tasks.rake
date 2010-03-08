@@ -11,7 +11,7 @@ require 'open-uri'
 # Don't forget to restart the application when you add new locale to load it into Rails!
 # 
 # == Example
-#   rake import:language_select 'de'
+#   rake import:language_select locale=de
 # 
 # The code is deliberately procedural and simple, so it's easily
 # understandable by beginners as an introduction to Rake tasks power.
@@ -25,9 +25,9 @@ namespace :import do
     # TODO : Implement locale import chooser from CLDR root via Highline
     
     # Setup variables
-    locale = ARGV[1]
+    locale = ENV['locale']
     unless locale
-      puts "\n[!] Usage: rake import:language_select de\n\n"
+      puts "\n[!] Usage: rake import:language_select locale=de\n\n"
       exit 0
     end
 
