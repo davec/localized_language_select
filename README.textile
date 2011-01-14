@@ -33,15 +33,17 @@ Insert in Gemfile
 
 <pre>gem 'localized_language_select'</pre>
 
-Then run:
+Then to instal it, run:
 
 <pre>$ bundle install</pre>  
 
-Then run:
+Then to install the locale files, run:
 
 <pre>$ rails g localized_language_select:locales</pre>  
 
-In order to copy locale files to your Rails config/locales dir. Note: you can specify which locales using the @--locales@ option, which takes a list of locales.
+This will copy the locale files to your Rails config/locales dir. The files will be called 'language.en.yml' and so on...
+
+Note: you can specify which locales using the @--locales@ option, which takes a list of locales.
 
 <pre>$ rails g localized_language_select:locales --locales da en fr</pre>  
 
@@ -79,6 +81,12 @@ h2. Options
 <pre>
   <%= localized_language_select(:user, :language, ['English'], :include_blank => 'Please choose...', :only => ['German', 'French']) %>  
 </pre>
+
+h2. Todo - Request
+
+Please add translations for your language!
+
+Would be nice to have at least: German, Spanish, Chinese, Japanese, Russian, Indian and Arabic (Persian?) in there as well...
 
 h2. Framework usage
 
