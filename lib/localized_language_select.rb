@@ -22,9 +22,25 @@ module LocalizedLanguageSelect
   class << self
     # Returns array with codes and localized language names (according to <tt>I18n.locale</tt>)
     # for <tt><option></tt> tags
-    def localized_languages_array
-      I18n.translate(:languages).map { |key, value| [value, key.to_s] }.sort
+    def localized_languages_array options = {}
+      res = []
+      list = I18n.translate(:languages).each do |key, value| 
+        res << [value, key.to_s.upcase] if include_language?(key.to_s, options)
+      end
+      res.sort_by { |country| country.first.parameterize }
     end
+    
+    def include_language?(key, options)                                           
+      if options[:only] 
+        return options[:only].include?(key)
+      end      
+      if options[:except] 
+        return !options[:except].include?(key)
+      end
+      true      
+    end      
+    
+    
     # Return array with codes and localized language names for array of language codes passed as argument
     # == Example
     #   priority_languages_array([:de, :fr, :en])
@@ -63,13 +79,13 @@ module ActionView
       # Returns a string of option tags for languages according to locale. Supply the language code in lower-case ('en', 'de') 
       # as +selected+ to have it marked as the selected option tag.
       # Language codes listed as an array of symbols in +priority_languages+ argument will be listed first
-      def localized_language_options_for_select(selected = nil, priority_languages = nil)
+      def localized_language_options_for_select(selected = nil, priority_languages = nil, options = {})
         language_options = ""
         if priority_languages
           language_options += options_for_select(LocalizedLanguageSelect::priority_languages_array(priority_languages), selected)
           language_options += "<option value=\"\" disabled=\"disabled\">-------------</option>\n"
         end
-        return language_options + options_for_select(LocalizedLanguageSelect::localized_languages_array, selected)
+        return language_options + options_for_select(LocalizedLanguageSelect::localized_languages_array(options), selected)
       end
       
     end
@@ -81,7 +97,7 @@ module ActionView
         value = value(object)
         content_tag("select",
           add_options(
-            localized_language_options_for_select(value, priority_languages),
+            localized_language_options_for_select(value, priority_languages, options),
             options, value
           ), html_options
         )

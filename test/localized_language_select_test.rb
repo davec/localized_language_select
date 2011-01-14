@@ -4,7 +4,7 @@ require 'test/unit'
 require 'rubygems'
 require 'active_support'
 require 'action_controller'
-require 'action_controller/test_process'
+# require 'action_controller/test_process'
 require 'action_view'
 require 'action_view/helpers'
 require 'action_view/helpers/tag_helper'
@@ -80,7 +80,27 @@ class LocalizedLanguageSelectTest < Test::Unit::TestCase
     assert_equal [ ['Dutch', 'nl'], ['French', 'fr'] ], LocalizedLanguageSelect::priority_languages_array([:nl, :fr])
   end
 
-  private
+  def test_include_country_rejects_on_except_option
+    res = !LocalizedLanguageSelect::include_language?('af', except: ['af'])
+    puts "should not include_language? '' except af : #{res}"    
+  end
+
+  def test_include_country_accept_on_only_option
+    res = LocalizedLanguageSelect::include_language?('af', only: ['af'])
+    puts "should include_language? 'af' : #{res}"    
+
+    res = !LocalizedLanguageSelect::include_language?('af', only: ['ad'])
+    puts "should not include_language? 'af' : #{res}"    
+  end  
+
+  def test_localized_countries_array_rejects_on_except_option
+    list = LocalizedLanguageSelect::localized_languages_array(:except => ['af'])
+    res = !list.include?(['Afrikaans', 'af'])
+    puts "rejected 'af' from array? #{res}"
+  end
+
+
+  # private
 
   def setup
     ['fr', 'en'].each do |locale|
