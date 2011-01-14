@@ -23,11 +23,21 @@ See "localized_country_select":http://github.com/karmi/localized_country_select
 
 h2. Install & Usage
 
+Install as plugin:
+
 <pre>$ rails plugin install https://github.com/kristianmandrup/localized_language_select.git</pre>  
 
-It should be converted into a gem...
+Install as gem:
 
-h2. Example
+Insert in Gemfile
+
+<pre>gem 'localized_language_select'</pre>
+
+Then run:
+
+<pre>$ bundle install</pre>  
+
+h2. Usage example
 
 <pre>
   <%= localized_language_select(:user, :language, [], :include_blank => 'Please choose...') %>  
@@ -65,6 +75,16 @@ h2. Options
 h2. Framework usage
 
 This plugin should also integrate nicely with various formbuilders, including Formtastic
+
+Formtastic example:
+
+<pre>
+<%= semantic_form_for @user do |form| %>  
+  ...
+  <%= form.input :lang, :as => :language, :priority_languages => ['English'], :include_blank => 'Please choose...', :only => ['German', 'French']) %>    
+  ...
+<% end %>  
+</pre>
 
 h2. Copyright
 
