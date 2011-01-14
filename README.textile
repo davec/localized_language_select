@@ -37,6 +37,14 @@ Then run:
 
 <pre>$ bundle install</pre>  
 
+Then run:
+
+<pre>$ rails g localized_language_select:locales</pre>  
+
+In order to copy locale files to your Rails config/locales dir. Note: you can specify which locales using the @--locales@ option, which takes a list of locales.
+
+<pre>$ rails g localized_language_select:locales --locales da en fr</pre>  
+
 h2. Usage example
 
 <pre>
