@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{localized_language_select}
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
@@ -24,11 +24,15 @@ Gem::Specification.new do |s|
     "VERSION",
     "init.rb",
     "install.rb",
+    "lib/generators/localized_language_select/locales/locales_generator.rb",
     "lib/localized_language_select.rb",
-    "locale/en.rb",
-    "locale/fr.rb",
-    "locale/nl.rb",
-    "pkg/localized_language_select-0.1.0.gem",
+    "lib/localized_language_select/i18n.rb",
+    "locale/da.yml",
+    "locale/de.yml",
+    "locale/en.yml",
+    "locale/fr.yml",
+    "locale/nl.yml",
+    "localized_language_select.gemspec",
     "tasks/localized_language_select_tasks.rake",
     "test/localized_language_select_test.rb",
     "uninstall.rb"
