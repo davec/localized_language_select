@@ -23,7 +23,9 @@ See "localized_country_select":http://github.com/karmi/localized_country_select
 
 h2. Install & Usage
 
-<pre>https://github.com/davec/localized_language_select.git</pre>  
+<pre>$ rails plugin install https://github.com/kristianmandrup/localized_language_select.git</pre>  
+
+It should be converted into a gem...
 
 h2. Example
 
@@ -46,7 +48,7 @@ will become:
     
 for the <tt>en</tt> locale.
 
-== Options
+h2. Options
 
 @:exclude@ option
 
@@ -60,10 +62,10 @@ for the <tt>en</tt> locale.
   <%= localized_language_select(:user, :language, ['English'], :include_blank => 'Please choose...', :only => ['German', 'French']) %>  
 </pre>
 
-== Framework usage
+h2. Framework usage
 
 This plugin should also integrate nicely with various formbuilders, including Formtastic
 
-== Copyright
+h2. Copyright
 
 Copyright (c) 2009 David Cato, released under the MIT license
