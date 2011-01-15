@@ -88,11 +88,9 @@ h2. Options
   <%= localized_language_select(:user, :language, ['English'], :include_blank => 'Please choose...', :only => ['German', 'French']) %>  
 </pre>
 
-h2. Todo - Request
+h2. Important!
 
-Please add translations for your language!
-
-Would be nice to have at least: German, Spanish, Chinese, Japanese, Russian, Indian and Arabic (Persian?) in there as well...
+Add translations for your language requirements using the rake tasks supplied, then use the generator to copy them into the Rails locales folder.
 
 h2. Framework usage
 
