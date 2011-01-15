@@ -14,12 +14,18 @@ You can easily translate language codes in your application like this:
   <%= I18n.t @user.language, :scope => 'languages' %>  
 </pre>
 
-Comes with a Rake task <tt>rake import:language_select locale=de</tt> for importing language names
-from Unicode.org's CLDR repository (http://www.unicode.org/cldr/data/charts/summary/root.html)
+h2. Locale file generation
+
+The following Rake tasks can be used for importing language names from Unicode.org's CLDR repository (http://www.unicode.org/cldr/data/charts/summary/root.html)
+
+* <tt>rake import:language_select locale=de</tt> 
+* <tt>rake yaml_locales:language_select locale=de</tt> 
+
+The _import_ one generates ruby files, the _yaml_locales_ task generates yml files.
+
 Don't forget to restart the application when you add new locale.
 
-The code borrows heavily from the LocalizedCountrySelect plugin.
-See "localized_country_select":http://github.com/karmi/localized_country_select
+The code borrows heavily from the LocalizedCountrySelect plugin - "localized_country_select":http://github.com/karmi/localized_country_select
 
 h2. Install & Usage
 

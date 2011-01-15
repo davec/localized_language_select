@@ -1,15 +1,12 @@
-# require 'rails/generators/base'
-# require 'sugar-high/array'
-# require 'active_support/inflector'
-# require 'rails3_artifactor'
-# require 'logging_assist'
+# require 'rake'
 
 module LocalizedLanguageSelect
   module Generators
     class LocaleGenerator < Rails::Generators::Base
-      desc "Copy locale files"
+      desc "Copy language locale files"
 
       class_option :locales, :type => :array, :default => ['all'], :desc => 'locales to generate for'
+      class_option :file_ext,  :type => :string, :default => 'rb', :desc => 'file extension for locale files to copy'      
 
       source_root File.dirname(__FILE__)
 
@@ -19,20 +16,34 @@ module LocalizedLanguageSelect
   
       protected
 
-      def supported_locales
-        [:en, :da]
+      def file_ext
+        options[:file_ext]
       end
 
       def locales
-        return supported_locales if options[:locales].include? 'all'
-        options[:locales].map(&:to_sym) & supported_locales
+        return Dir.glob("#{locale_dir}/**.#{file_ext}") if options[:locales].include? 'all'        
+        options[:locales].map(&:to_sym)
+      end
+
+      def locale_dir
+        File.expand_path("../../../../locale", File.dirname __FILE__)        
+      end
+
+      def locale_ref
+        "../../../../locale"
+      end
+
+      def locale_name
+        :languages
       end
   
-      def copy_locales
-        locales.each do |locale|          
-          copy_file "../../../../locale/#{locale}.yml", "config/locales/languages.#{locale}.yml"
+      def copy_locales                 
+        locales.each do |locale|       
+          locale_file = "#{locale}.#{file_ext}"
+          file = File.join(locale_dir, locale_file)
+          copy_file File.join(locale_ref, locale_file), "config/locales/#{locale_name}.#{locale}.#{file_ext}" if file.exist?
         end
-      end
+      end  
     end
   end
 end

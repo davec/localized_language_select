@@ -19,7 +19,7 @@
 # See http://github.com/karmi/localized_country_select
 #
 
-require 'localized_language_select/i18n'
+# require 'localized_language_select/i18n'
 
 module LocalizedLanguageSelect
   class << self
