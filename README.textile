@@ -14,7 +14,17 @@ You can easily translate language codes in your application like this:
   <%= I18n.t @user.language, :scope => 'languages' %>  
 </pre>
 
-h2. Locale file generation
+h2. Generating language locale files
+
+The project comes with both rake tasks and a generator to generate and import locale files for languages:
+
+h3. Rails 3 generator
+
+The project now comes with a Rails 3 generator to import locale files and place them in config/locales in your Rails 3 app.
+
+@rails g localized_language_select:import de ru --file-ext yml@
+
+h3. Rake import tasks
 
 The following Rake tasks can be used for importing language names from Unicode.org's CLDR repository (http://www.unicode.org/cldr/data/charts/summary/root.html)
 
