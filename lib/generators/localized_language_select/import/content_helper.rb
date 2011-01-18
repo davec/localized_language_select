@@ -2,14 +2,14 @@ module Import
   module ContentHelper
     def languages_yaml_content
       languages.inject([]) do |output, language|
-        output << "\t\t#{language[:code]}: \"#{language[:name]}\""
+        output << "    #{language[:code]}: \"#{language[:name]}\""
         output
       end.join("\n")
     end
 
     def languages_hash_content
       languages.inject([]) do |output, language|
-        output << "\t\t:#{language[:code]} => \"#{language[:name]}\","
+        output << "    :#{language[:code]} => \"#{language[:name]}\","
         output
       end.join("\n")
     end
@@ -20,7 +20,7 @@ module Import
 
     def yaml_output
       %Q{#{locale}:
-\tlanguages:
+  languages:
 #{languages_yaml_content}
 }
     end
@@ -29,11 +29,11 @@ module Import
     def hash_output
       output = <<HASH
 { 
-\t:#{lang} => {
-\t\t:languages => {
+  :#{lang} => {
+    :languages => {
 #{languages_hash_content}      
-\t\t\t}
-\t}
+    }
+  }
 }
 HASH
     end
