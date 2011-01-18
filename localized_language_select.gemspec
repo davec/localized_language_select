@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kristian Mandrup"]
-  s.date = %q{2011-01-14}
+  s.date = %q{2011-01-18}
   s.description = %q{Localized language select for Rails 2.3+ with options to control languages to display}
   s.email = %q{kmandrup@gmail.com}
   s.extra_rdoc_files = [
@@ -24,9 +24,14 @@ Gem::Specification.new do |s|
     "VERSION",
     "init.rb",
     "install.rb",
+    "lib/generators/localized_language_select/import/content_helper.rb",
+    "lib/generators/localized_language_select/import/import_generator.rb",
+    "lib/generators/localized_language_select/import/parse_helper.rb",
     "lib/generators/localized_language_select/locales/locales_generator.rb",
     "lib/localized_language_select.rb",
     "lib/localized_language_select/i18n.rb",
+    "lib/tasks/localized_language_select_tasks.rake",
+    "lib/tasks/yaml_locales_tasks.rake",
     "locale/da.yml",
     "locale/de.yml",
     "locale/en.yml",
