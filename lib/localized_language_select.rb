@@ -115,3 +115,27 @@ module ActionView
 
   end
 end
+
+
+module Formtastic #:nodoc:
+
+  class SemanticFormBuilder < ActionView::Helpers::FormBuilder
+    
+    protected
+
+      def language_input(method, options)
+        html_options = options.delete(:input_html) || {}
+        priority_languages = options.delete(:priority_languages) || self.priority_languages
+
+        field_id = generate_html_id(method, "")
+        html_options[:id] ||= field_id
+        label_options = options_for_label(options)
+        label_options[:for] ||= html_options[:id]
+
+        label(method, label_options) <<
+        localized_language_select(method, priority_languages, strip_formtastic_options(options), html_options)
+      end
+
+  end
+end
+
