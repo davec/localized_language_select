@@ -125,7 +125,7 @@ module Formtastic #:nodoc:
 
       def language_input(method, options)
         html_options = options.delete(:input_html) || {}
-        priority_languages = options.delete(:priority_languages) || self.priority_languages
+        priority_languages = options.delete(:priority_languages) || []
 
         field_id = generate_html_id(method, "")
         html_options[:id] ||= field_id
