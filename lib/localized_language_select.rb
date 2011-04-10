@@ -28,7 +28,7 @@ module LocalizedLanguageSelect
     def localized_languages_array options = {}
       res = []
       list = I18n.translate(:languages).each do |key, value| 
-        res << [value, key.to_s.upcase] if include_language?(key.to_s, options)
+        res << [value, key.to_s] if include_language?(key.to_s, options)
       end
       res.sort_by { |country| country.first.parameterize }
     end

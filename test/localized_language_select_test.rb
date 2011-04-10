@@ -81,22 +81,18 @@ class LocalizedLanguageSelectTest < Test::Unit::TestCase
   end
 
   def test_include_country_rejects_on_except_option
-    res = !LocalizedLanguageSelect::include_language?('af', except: ['af'])
-    puts "should not include_language? '' except af : #{res}"    
+    assert !LocalizedLanguageSelect::include_language?('af', :except => ['af'])
+    assert LocalizedLanguageSelect::include_language?('ad', :except => ['af'])
   end
 
   def test_include_country_accept_on_only_option
-    res = LocalizedLanguageSelect::include_language?('af', only: ['af'])
-    puts "should include_language? 'af' : #{res}"    
-
-    res = !LocalizedLanguageSelect::include_language?('af', only: ['ad'])
-    puts "should not include_language? 'af' : #{res}"    
+    assert LocalizedLanguageSelect::include_language?('af', :only => ['af'])
+    assert !LocalizedLanguageSelect::include_language?('af', :only => ['ad'])
   end  
 
   def test_localized_countries_array_rejects_on_except_option
     list = LocalizedLanguageSelect::localized_languages_array(:except => ['af'])
-    res = !list.include?(['Afrikaans', 'af'])
-    puts "rejected 'af' from array? #{res}"
+    assert !list.include?(['Afrikaans', 'af'])
   end
 
 
@@ -105,7 +101,7 @@ class LocalizedLanguageSelectTest < Test::Unit::TestCase
   def setup
     ['fr', 'en'].each do |locale|
       # I18n.load_translations( File.join(File.dirname(__FILE__), '..', 'locale', "#{locale}.rb")  )  # <-- Old style! :)
-      I18n.load_path += Dir[ File.join(File.dirname(__FILE__), '..', 'locale', "#{locale}.rb") ]
+      I18n.load_path += Dir[ File.join(File.dirname(__FILE__), '..', 'locale', "#{locale}.{rb,yml}") ]
     end
     I18n.locale = 'en'
   end
