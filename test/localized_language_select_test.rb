@@ -54,8 +54,8 @@ class LocalizedLanguageSelectTest < Test::Unit::TestCase
   end
 
   def test_should_return_priority_languages_first
-    assert localized_language_options_for_select(nil, [:es, :fr]) =~ Regexp.new(
-      Regexp.escape("<option value=\"es\">Spanish</option>\n<option value=\"fr\">French</option><option value=\"\" disabled=\"disabled\">-------------</option>\n<option value=\"ab\">Abkhazian</option>\n"))
+    assert localized_language_options_for_select(nil, [:es, :fr, :"nl-BE"]) =~ Regexp.new(
+      Regexp.escape("<option value=\"es\">Spanish</option>\n<option value=\"fr\">French</option>\n<option value=\"nl-BE\">Flemish</option><option value=\"\" disabled=\"disabled\">-------------</option>\n<option value=\"ab\">Abkhazian</option>\n"))
   end
 
   def test_i18n_should_know_about_languages
