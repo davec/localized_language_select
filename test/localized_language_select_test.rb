@@ -54,8 +54,11 @@ class LocalizedLanguageSelectTest < Test::Unit::TestCase
   end
 
   def test_should_return_priority_languages_first
-    assert localized_language_options_for_select(nil, [:es, :fr, :"nl-BE"]) =~ Regexp.new(
-      Regexp.escape("<option value=\"es\">Spanish</option>\n<option value=\"fr\">French</option>\n<option value=\"nl-BE\">Flemish</option><option value=\"\" disabled=\"disabled\">-------------</option>\n<option value=\"ab\">Abkhazian</option>\n"))
+    # Once with symbols, and once with strings
+    [ [ :es, :fr, :"nl-BE" ], [ "es", "fr", "nl-BE" ] ].each do |langs|
+      assert localized_language_options_for_select(nil, langs) =~ Regexp.new(
+        Regexp.escape("<option value=\"es\">Spanish</option>\n<option value=\"fr\">French</option>\n<option value=\"nl-BE\">Flemish</option><option value=\"\" disabled=\"disabled\">-------------</option>\n<option value=\"ab\">Abkhazian</option>\n"))
+    end
   end
 
   def test_i18n_should_know_about_languages
@@ -94,7 +97,6 @@ class LocalizedLanguageSelectTest < Test::Unit::TestCase
     list = LocalizedLanguageSelect::localized_languages_array(:except => ['af'])
     assert !list.include?(['Afrikaans', 'af'])
   end
-
 
   # private
 

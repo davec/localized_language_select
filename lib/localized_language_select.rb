@@ -50,7 +50,7 @@ module LocalizedLanguageSelect
     #   # => [ ['German', 'de'], ['French', 'fr'], ['English', 'en'] ]
     def priority_languages_array(language_codes=[])
       languages = I18n.translate(:languages)
-      language_codes.map { |code| [languages[code], code.to_s] }
+      language_codes.map { |code| [languages[code.to_sym], code.to_s] }
     end
   end
 end
