@@ -68,6 +68,7 @@ module ActionView
         InstanceTag.new(object, method, self, options.delete(:object)).
           to_localized_language_select_tag(priority_languages, options, html_options)
       end
+      alias_method :language_select, :localized_language_select
 
       # Return "named" select and option tags according to given arguments.
       # Use +selected_value+ for setting initial value
@@ -78,6 +79,7 @@ module ActionView
                     localized_language_options_for_select(selected_value, priority_languages),
                     { "name" => name, "id" => name }.update(html_options.stringify_keys)
       end
+      alias_method :language_select_tag, :localized_language_select_tag
 
       # Returns a string of option tags for languages according to locale. Supply the language code in lower-case ('en', 'de') 
       # as +selected+ to have it marked as the selected option tag.
@@ -90,6 +92,7 @@ module ActionView
         end
         return language_options + options_for_select(LocalizedLanguageSelect::localized_languages_array(options), selected)
       end
+      alias_method :language_options_for_select, :localized_language_options_for_select
       
     end
 
@@ -111,6 +114,7 @@ module ActionView
       def localized_language_select(method, priority_languages = nil, options = {}, html_options = {})
         @template.localized_language_select(@object_name, method, priority_languages, options.merge(:object => @object), html_options)
       end
+      alias_method :language_select, :localized_language_select
     end
 
   end
