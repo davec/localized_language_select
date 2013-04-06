@@ -94,15 +94,17 @@ module ActionView
     end
 
     class InstanceTag
+      include ActionView::Helpers::OutputSafetyHelper
+
       def to_localized_language_select_tag(priority_languages, options, html_options)
         html_options = html_options.stringify_keys
         add_default_name_and_id(html_options)
         value = value(object)
         content_tag("select",
-          add_options(
+          raw(add_options(
             localized_language_options_for_select(value, priority_languages, options),
             options, value
-          ), html_options
+          )), html_options
         )
       end
     end
