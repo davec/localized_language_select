@@ -65,8 +65,15 @@ module ActionView
       # Language codes listed as an array of symbols in +priority_languages+ argument will be listed first
       # TODO : Implement pseudo-named args with a hash, not the "somebody said PHP?" multiple args sillines
       def localized_language_select(object, method, priority_languages = nil, options = {}, html_options = {})
-        InstanceTag.new(object, method, self, options.delete(:object)).
-          to_localized_language_select_tag(priority_languages, options, html_options)
+        tag = if defined?(ActionView::Helpers::InstanceTag) &&
+                ActionView::Helpers::InstanceTag.instance_method(:initialize).arity != 0
+
+                InstanceTag.new(object, method, self, options.delete(:object))
+              else
+                LanguageSelect.new(object, method, self, options)
+              end
+
+        tag.to_localized_language_select_tag(priority_languages, options, html_options)
       end
 
       # Return "named" select and option tags according to given arguments.
@@ -93,9 +100,7 @@ module ActionView
       
     end
 
-    class InstanceTag
-      include ActionView::Helpers::OutputSafetyHelper
-
+    module ToLanguageSelectTag
       def to_localized_language_select_tag(priority_languages, options, html_options)
         html_options = html_options.stringify_keys
         add_default_name_and_id(html_options)
@@ -108,7 +113,20 @@ module ActionView
         )
       end
     end
-    
+
+    if defined?(ActionView::Helpers::InstanceTag) &&
+        ActionView::Helpers::InstanceTag.instance_method(:initialize).arity != 0
+      class InstanceTag
+        include ActionView::Helpers::OutputSafetyHelper
+        include ToLanguageSelectTag
+      end
+    else
+      class LanguageSelect < Tags::Base
+        include ActionView::Helpers::OutputSafetyHelper
+        include ToLanguageSelectTag
+      end
+    end
+
     class FormBuilder
       def localized_language_select(method, priority_languages = nil, options = {}, html_options = {})
         @template.localized_language_select(@object_name, method, priority_languages, options.merge(:object => @object), html_options)
